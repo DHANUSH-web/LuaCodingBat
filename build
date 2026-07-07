@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ "$1" == "run" ]]; then
+    lua main.lua
+elif [[ "$1" == "test" ]]; then
+    lua tests.lua
+else
+    echo "Supported commands: run | test"
+fi

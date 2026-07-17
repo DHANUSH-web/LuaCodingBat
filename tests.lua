@@ -56,4 +56,11 @@ ltest.run_test("has12", {
     { core.has12({1, 2}), true },
 })
 
+-- CodingBat: matchUp
+ltest.run_test("matchUp", {
+    { core.matchUp({1, 2, 3}, {2, 3, 10}), 2},
+    { core.matchUp({1, 2, 3}, {2, 3, 5}), 3},
+    { core.matchUp({1, 2, 3}, {2, 3, 3}), 2},
+})
+
 ltest.finish()

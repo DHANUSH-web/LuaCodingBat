@@ -61,5 +61,17 @@ function core.has12(nums)
     return false
 end
 
+function core.matchUp(nums1, nums2)
+    local count = 0
+
+    for i = 1, #nums1 do
+        if not (nums1[i] == nums2[i]) and (math.abs(nums1[i] - nums2[i]) <= 2) then
+            count = count + 1
+        end
+    end
+
+    return count
+end
+
 -- CodingBat: END
 return core

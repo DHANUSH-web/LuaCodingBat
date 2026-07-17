@@ -58,16 +58,16 @@ ltest.run_test("has12", {
 
 -- CodingBat: matchUp
 ltest.run_test("matchUp", {
-    { core.matchUp({1, 2, 3}, {2, 3, 10}), 2},
-    { core.matchUp({1, 2, 3}, {2, 3, 5}), 3},
-    { core.matchUp({1, 2, 3}, {2, 3, 3}), 2},
+    { core.matchUp({1, 2, 3}, {2, 3, 10}), 2 },
+    { core.matchUp({1, 2, 3}, {2, 3, 5}), 3 },
+    { core.matchUp({1, 2, 3}, {2, 3, 3}), 2 },
 })
 
 -- CodingBat: modThree
 ltest.run_test("modThree", {
-    { core.modThree({2, 1, 3, 5}), true},
-    { core.modThree({2, 1, 2, 5}), false},
-    { core.modThree({2, 4, 2, 5}), true},
+    { core.modThree({2, 1, 3, 5}), true },
+    { core.modThree({2, 1, 2, 5}), false },
+    { core.modThree({2, 4, 2, 5}), true },
 })
 
 ltest.finish()

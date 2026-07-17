@@ -1,61 +1,59 @@
 local ltest = require("libs.lua_test")
 local core = require("libs.core")
 
---- Optional filter: `./build test has77` runs only matching suite names.
-local filter = arg and arg[1] or nil
+-- pow(base, exp)
+ltest.run_test("pow", {
+    { core.pow(2, 3), 8 },
+    { core.pow(2, 0), 1 },
+    { core.pow(5, 1), 5 },
+    { core.pow(10, 2), 100 },
+    { core.pow(1, 5), 1 },
+    { core.pow(3, 4), 81 },
+    { core.pow(7, 0), 1 },
+    { core.pow(4, 2), 16 },
+    { core.pow(9, 3), 729 },
+})
 
-local function should_run(name)
-    return filter == nil or filter == name
-end
-
-local function run_boolean_cases(suite_name, fn, cases)
-    if not should_run(suite_name) then
-        return
-    end
-
-    for i, case in ipairs(cases) do
-        local input, expected = case[1], case[2]
-        local label = suite_name .. "#" .. i
-        if expected then
-            ltest.assert_true(label, fn(input))
-        else
-            ltest.assert_false(label, fn(input))
-        end
-    end
-end
+-- reverse_number(n)
+ltest.run_test("reverse_number", {
+    { core.reverse_number(123), 321 },
+    { core.reverse_number(-45), -54 },
+    { core.reverse_number(0), 0 },
+    { core.reverse_number(7), 7 },
+    { core.reverse_number(10), 1 },          -- trailing zeros drop when reversed
+    { core.reverse_number(100), 1 },
+    { core.reverse_number(120), 21 },
+    { core.reverse_number(-100), -1 },
+    { core.reverse_number(-123), -321 },
+    { core.reverse_number(1001), 1001 },
+})
 
 -- CodingBat: has77
-run_boolean_cases("has77", core.has77, {
-    { {1, 7, 7}, true },
-    { {1, 7, 1, 7}, true },
-    { {1, 7, 1, 1, 7}, false },
-    { {7, 7}, true },           -- adjacent pair at start / short array
-    { {7, 1, 7}, true },         -- separated by one
-    { {7}, false },
-    { {}, false },
-    { {2, 7, 2, 7}, true },
-    { {2, 7, 2, 2, 7}, false },
-    { {7, 2, 7, 2}, true },
+ltest.run_test("has77", {
+    { core.has77({1, 7, 7}), true },
+    { core.has77({1, 7, 1, 7}), true },
+    { core.has77({1, 7, 1, 1, 7}), false },
+    { core.has77({7, 7}), true },           -- adjacent pair at start / short array
+    { core.has77({7, 1, 7}), true },         -- separated by one
+    { core.has77({7}), false },
+    { core.has77({}), false },
+    { core.has77({2, 7, 2, 7}), true },
+    { core.has77({2, 7, 2, 2, 7}), false },
+    { core.has77({7, 2, 7, 2}), true },
 })
 
 -- CodingBat: has12
-run_boolean_cases("has12", core.has12, {
-    { {1, 3, 2}, true },
-    { {1, 3, 2, 5}, true },
-    { {1}, false },
-    { {}, false },
-    { {2}, false },
-    { {2, 1}, false },           -- 2 before 1 does not count
-    { {1, 1, 2}, true },
-    { {3, 1, 4, 5, 2}, true },
-    { {3, 2, 1}, false },
-    { {1, 2}, true },
+ltest.run_test("has12", {
+    { core.has12({1, 3, 2}), true },
+    { core.has12({1, 3, 2, 5}), true },
+    { core.has12({1}), false },
+    { core.has12({}), false },
+    { core.has12({2}), false },
+    { core.has12({2, 1}), false },           -- 2 before 1 does not count
+    { core.has12({1, 1, 2}), true },
+    { core.has12({3, 1, 4, 5, 2}), true },
+    { core.has12({3, 2, 1}), false },
+    { core.has12({1, 2}), true },
 })
-
-if ltest.meta.total == 0 then
-    print("No tests matched filter: " .. tostring(filter))
-    print("Usage: ./build test [suite_name]")
-    os.exit(1)
-end
 
 ltest.finish()

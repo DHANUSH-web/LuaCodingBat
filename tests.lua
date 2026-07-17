@@ -42,6 +42,16 @@ ltest.run_test("has77", {
     { core.has77({7, 2, 7, 2}), true },
 })
 
+-- Bubble Sort
+ltest.run_test("bubble_sort", {
+    { core.bubble_sort({5, 2, -1, 0, 6}), {-1, 0, 2, 5, 6} },
+    { core.bubble_sort({1, 2, 0, -1, -2}), {-2, -1, 0, 1, 2} },
+    { core.bubble_sort({200, -2, 1, 0, 3}), {-2, 0, 1, 3, 200} },
+    { core.bubble_sort({5}), {5} },
+    { core.bubble_sort({}), {} },
+    { core.bubble_sort({-1, -2, -3, -4, -5}), {-5, -4, -3, -2, -1} },
+})
+
 -- CodingBat: has12
 ltest.run_test("has12", {
     { core.has12({1, 3, 2}), true },

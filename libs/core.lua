@@ -28,6 +28,19 @@ function core.reverse_number(number)
     return number < 0 and -rnumber or rnumber
 end
 
+-- Bubble Sort
+function core.bubble_sort(nums)
+    for i = 1, #nums do
+        for j = 1, i do
+            if nums[i] < nums[j] then
+                nums[i], nums[j] = nums[j], nums[i]
+            end
+        end
+    end
+
+    return nums
+end
+
 -- CodingBat: BEGIN
 
 -- True if the array has two 7s next to each other, or separated by one element.

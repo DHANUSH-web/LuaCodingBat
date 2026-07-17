@@ -55,23 +55,23 @@ Scaffold a stub in `core` and a matching test suite:
 Then:
 
 1. Implement `core.myProblem` in `libs/core.lua`
-2. Fill in cases in `tests.lua` with `run_test` (table-driven).
+2. Fill in cases in `tests.lua` only (helpers live in `libs/lua_test.lua`).
    Each case is `{ actual, expected }` — call the function inline with any arguments:
 
 ```lua
 -- Boolean expected → assert_true / assert_false
-run_test("myProblem", {
+ltest.run_test("myProblem", {
     { core.myProblem({1, 2, 3}), true },
     { core.myProblem({}), false },
 })
 
 -- Non-boolean expected → assert_equals (multi-arg is natural)
-run_test("pow", {
+ltest.run_test("pow", {
     { core.pow(2, 3), 8 },
     { core.pow(10, 2), 100 },
 })
 
-run_test("reverse_number", {
+ltest.run_test("reverse_number", {
     { core.reverse_number(123), 321 },
     { core.reverse_number(-45), -54 },
 })
@@ -83,7 +83,7 @@ run_test("reverse_number", {
 ./build test myProblem
 ```
 
-`run_test(name, cases)` picks the assert from `type(expected)`:
+`ltest.run_test(name, cases)` (from `libs/lua_test.lua`) picks the assert from `type(expected)`:
 
 | Expected type | Assert used |
 |---------------|-------------|

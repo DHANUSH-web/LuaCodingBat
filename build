@@ -56,7 +56,7 @@ scaffold_new() {
         exit 1
     fi
 
-    if grep -q "run_test(\"${name}\"" tests.lua; then
+    if grep -q "ltest\.run_test(\"${name}\"" tests.lua; then
         echo "Test suite ${name} already exists in tests.lua" >&2
         exit 1
     fi
@@ -75,7 +75,7 @@ EOF
     test_stub=$(cat <<EOF
 
 -- CodingBat: ${name}
-run_test("${name}", {
+ltest.run_test("${name}", {
     -- { actual, expected }  -- e.g. { core.${name}(...), value }
     { core.${name}({}), false },
 })
@@ -90,7 +90,7 @@ EOF
 }
 
 list_suites() {
-    grep -oE 'run_test\("[^"]+"' tests.lua | sed 's/run_test("//;s/"$//' | sort -u
+    grep -oE 'ltest\.run_test\("[^"]+"' tests.lua | sed 's/ltest\.run_test("//;s/"$//' | sort -u
 }
 
 cmd="${1:-help}"

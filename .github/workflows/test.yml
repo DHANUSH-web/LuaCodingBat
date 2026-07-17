@@ -1,0 +1,46 @@
+name: Test
+
+# Branch model:
+#   codingbat  — day-to-day work; every push is tested
+#   main       — stable; receives merges from codingbat after green tests
+#
+# Triggers:
+#   1. push to codingbat  → test as soon as work is pushed
+#   2. pull_request → main (from codingbat or elsewhere) → gate the merge
+#   3. push to main       → re-test after the merge lands
+on:
+  push:
+    branches:
+      - codingbat
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Cancel older runs for the same branch/PR when a newer commit is pushed.
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Lua tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Lua 5.3+ required (integer division // used in libs/core.lua).
+      - name: Install Lua
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.4
+          lua5.4 -v
+
+      - name: Run test suite
+        run: |
+          # apt package installs the binary as lua5.4; build expects `lua`.
+          sudo ln -sf "$(command -v lua5.4)" /usr/local/bin/lua
+          chmod +x build
+          ./build test

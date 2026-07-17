@@ -30,26 +30,31 @@ end
 
 -- CodingBat: BEGIN
 
+-- True if the array has two 7s next to each other, or separated by one element.
 function core.has77(nums)
-    for i = 1, #nums-2 do
-        if (nums[i] == 7 and (nums[i+1] == 7 or nums[i+2] == 7)) or (nums[i+1] == 7 and nums[i+2] == 7) then
-            return true
+    for i = 1, #nums - 1 do
+        if nums[i] == 7 then
+            if nums[i + 1] == 7 then
+                return true
+            end
+            if i + 2 <= #nums and nums[i + 2] == 7 then
+                return true
+            end
         end
     end
 
     return false
 end
 
+-- True if there is a 1 in the array with a 2 somewhere later in the array.
 function core.has12(nums)
-    local found = false
+    local found_one = false
 
-    for i = 0, #nums do
-        if nums[i] == 1 and not found then
-            found = true
-        end
-
-        if nums[i] == 2 and found then
-            return true;
+    for i = 1, #nums do
+        if nums[i] == 1 then
+            found_one = true
+        elseif nums[i] == 2 and found_one then
+            return true
         end
     end
 

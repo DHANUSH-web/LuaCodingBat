@@ -1,1 +1,6 @@
-print("Run `./build test` to test your logic")
+print("LuaCodingBat")
+print("  ./build test          Run all tests")
+print("  ./build test <suite>  Run one suite (e.g. has77)")
+print("  ./build list          List suites")
+print("  ./build new <name>    Scaffold a new problem")
+print("  ./build help          Show all commands")

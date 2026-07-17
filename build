@@ -1,9 +1,123 @@
 #!/bin/bash
+set -euo pipefail
 
-if [[ "$1" == "run" ]]; then
-    lua main.lua
-elif [[ "$1" == "test" ]]; then
-    lua tests.lua
-else
-    echo "Supported commands: run | test"
-fi
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+cd "$ROOT"
+
+usage() {
+    cat <<'EOF'
+Usage: ./build <command> [args]
+
+Commands:
+  run                 Run main.lua
+  test [suite]        Run tests (optional suite filter, e.g. has77)
+  new <name>          Scaffold a new CodingBat problem in core + tests
+  list                List test suites discovered in tests.lua
+  help                Show this help
+EOF
+}
+
+# Insert a multi-line block immediately before the first line matching a pattern.
+# Usage: insert_before_line <file> <regex> <block_text>
+insert_before_line() {
+    local file="$1"
+    local pattern="$2"
+    local block="$3"
+    local tmp
+    tmp="$(mktemp)"
+    local found=0
+
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        if [[ $found -eq 0 && "$line" =~ $pattern ]]; then
+            printf '%s\n' "$block"
+            found=1
+        fi
+        printf '%s\n' "$line"
+    done < "$file" > "$tmp"
+
+    if [[ $found -eq 0 ]]; then
+        rm -f "$tmp"
+        echo "Could not find marker matching /$pattern/ in $file" >&2
+        exit 1
+    fi
+
+    mv "$tmp" "$file"
+}
+
+scaffold_new() {
+    local name="$1"
+    if [[ ! "$name" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+        echo "Invalid problem name: $name (use a Lua identifier)" >&2
+        exit 1
+    fi
+
+    if grep -q "function core\.${name}" libs/core.lua; then
+        echo "core.${name} already exists in libs/core.lua" >&2
+        exit 1
+    fi
+
+    if grep -q "run_boolean_cases(\"${name}\"" tests.lua; then
+        echo "Test suite ${name} already exists in tests.lua" >&2
+        exit 1
+    fi
+
+    local core_stub
+    core_stub=$(cat <<EOF
+
+-- TODO: implement ${name}
+function core.${name}(nums)
+    return false
+end
+EOF
+)
+
+    local test_stub
+    test_stub=$(cat <<EOF
+
+-- CodingBat: ${name}
+run_boolean_cases("${name}", core.${name}, {
+    -- { {input...}, expected },
+    { {}, false },
+})
+EOF
+)
+
+    insert_before_line libs/core.lua '^-- CodingBat: END$' "$core_stub"
+    insert_before_line tests.lua '^if ltest\.meta\.total == 0 then$' "$test_stub"
+
+    echo "Scaffolded core.${name} and test suite '${name}'."
+    echo "Edit libs/core.lua and tests.lua, then run: ./build test ${name}"
+}
+
+list_suites() {
+    grep -oE 'run_boolean_cases\("[^"]+"' tests.lua | sed 's/run_boolean_cases("//;s/"$//' | sort -u
+}
+
+cmd="${1:-help}"
+case "$cmd" in
+    run)
+        lua main.lua
+        ;;
+    test)
+        shift || true
+        lua tests.lua "$@"
+        ;;
+    new)
+        if [[ $# -lt 2 ]]; then
+            echo "Usage: ./build new <problem_name>" >&2
+            exit 1
+        fi
+        scaffold_new "$2"
+        ;;
+    list)
+        list_suites
+        ;;
+    help|-h|--help)
+        usage
+        ;;
+    *)
+        echo "Unknown command: $cmd" >&2
+        usage >&2
+        exit 1
+        ;;
+esac

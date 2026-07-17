@@ -73,5 +73,22 @@ function core.matchUp(nums1, nums2)
     return count
 end
 
+function core.modThree(nums)
+    for i = 1, #nums-2 do
+        if (nums[i]   % 2 == 0 and
+            nums[i+1] % 2 == 0 and
+            nums[i+2] % 2 == 0
+        ) or (
+            nums[i]   % 2 == 1 and
+            nums[i+1] % 2 == 1 and
+            nums[i+2] % 2 == 1
+        ) then
+            return true
+        end
+    end
+
+    return false
+end
+
 -- CodingBat: END
 return core

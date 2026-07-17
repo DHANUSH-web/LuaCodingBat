@@ -75,9 +75,9 @@ EOF
     test_stub=$(cat <<EOF
 
 -- CodingBat: ${name}
-run_test("${name}", core.${name}, {
-    -- { input, expected }  -- booleans → assert_true/false; else assert_equals
-    { {}, false },
+run_test("${name}", {
+    -- { actual, expected }  -- e.g. { core.${name}(...), value }
+    { core.${name}({}), false },
 })
 EOF
 )

@@ -32,6 +32,38 @@ local function run_test(suite_name, fn, cases)
     end
 end
 
+-- Helpers (multi-arg functions): input is a list of arguments.
+local function pow_args(args)
+    return core.pow(args[1], args[2])
+end
+
+-- pow(base, exp) — cases: { {base, exp}, expected }
+run_test("pow", pow_args, {
+    { {2, 3}, 8 },
+    { {2, 0}, 1 },
+    { {5, 1}, 5 },
+    { {10, 2}, 100 },
+    { {1, 5}, 1 },
+    { {3, 4}, 81 },
+    { {7, 0}, 1 },
+    { {4, 2}, 16 },
+    { {9, 3}, 729 },
+})
+
+-- reverse_number(n) — cases: { n, expected }
+run_test("reverse_number", core.reverse_number, {
+    { 123, 321 },
+    { -45, -54 },
+    { 0, 0 },
+    { 7, 7 },
+    { 10, 1 },          -- trailing zeros drop when reversed
+    { 100, 1 },
+    { 120, 21 },
+    { -100, -1 },
+    { -123, -321 },
+    { 1001, 1001 },
+})
+
 -- CodingBat: has77
 run_test("has77", core.has77, {
     { {1, 7, 7}, true },

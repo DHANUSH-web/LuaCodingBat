@@ -55,12 +55,19 @@ Scaffold a stub in `core` and a matching test suite:
 Then:
 
 1. Implement `core.myProblem` in `libs/core.lua`
-2. Fill in cases in `tests.lua`:
+2. Fill in cases in `tests.lua` with `run_test` (table-driven):
 
 ```lua
-run_boolean_cases("myProblem", core.myProblem, {
+-- Boolean expected values → assert_true / assert_false
+run_test("myProblem", core.myProblem, {
     { {1, 2, 3}, true },
     { {}, false },
+})
+
+-- Non-boolean expected values → assert_equals
+run_test("reverse_number", core.reverse_number, {
+    { 123, 321 },
+    { -45, -54 },
 })
 ```
 
@@ -70,12 +77,14 @@ run_boolean_cases("myProblem", core.myProblem, {
 ./build test myProblem
 ```
 
-For non-boolean return values, call the helpers in `libs/lua_test.lua` directly:
+`run_test(name, fn, cases)` picks the assert from `type(expected)`:
 
-- `assert_true` / `assert_false`
-- `assert_equals` / `assert_not_equals` (supports tables)
-- `finish()` prints the summary and exits `0` or `1`
+| Expected type | Assert used |
+|---------------|-------------|
+| `boolean` | `assert_true` / `assert_false` |
+| anything else | `assert_equals` (tables supported) |
 
+You can still call `assert_*` helpers directly when a case does not fit `{ input, expected }`.
 ## Branch model
 
 | Branch | Purpose |

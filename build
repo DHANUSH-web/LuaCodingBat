@@ -56,7 +56,7 @@ scaffold_new() {
         exit 1
     fi
 
-    if grep -q "run_boolean_cases(\"${name}\"" tests.lua; then
+    if grep -q "run_test(\"${name}\"" tests.lua; then
         echo "Test suite ${name} already exists in tests.lua" >&2
         exit 1
     fi
@@ -75,8 +75,8 @@ EOF
     test_stub=$(cat <<EOF
 
 -- CodingBat: ${name}
-run_boolean_cases("${name}", core.${name}, {
-    -- { {input...}, expected },
+run_test("${name}", core.${name}, {
+    -- { input, expected }  -- booleans → assert_true/false; else assert_equals
     { {}, false },
 })
 EOF
@@ -90,7 +90,7 @@ EOF
 }
 
 list_suites() {
-    grep -oE 'run_boolean_cases\("[^"]+"' tests.lua | sed 's/run_boolean_cases("//;s/"$//' | sort -u
+    grep -oE 'run_test\("[^"]+"' tests.lua | sed 's/run_test("//;s/"$//' | sort -u
 }
 
 cmd="${1:-help}"

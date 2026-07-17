@@ -8,7 +8,9 @@ local function should_run(name)
     return filter == nil or filter == name
 end
 
-local function run_boolean_cases(suite_name, fn, cases)
+--- Run table-driven cases: { input, expected }.
+--- Booleans use assert_true / assert_false; everything else uses assert_equals.
+local function run_test(suite_name, fn, cases)
     if not should_run(suite_name) then
         return
     end
@@ -16,16 +18,22 @@ local function run_boolean_cases(suite_name, fn, cases)
     for i, case in ipairs(cases) do
         local input, expected = case[1], case[2]
         local label = suite_name .. "#" .. i
-        if expected then
-            ltest.assert_true(label, fn(input))
+        local actual = fn(input)
+
+        if type(expected) == "boolean" then
+            if expected then
+                ltest.assert_true(label, actual)
+            else
+                ltest.assert_false(label, actual)
+            end
         else
-            ltest.assert_false(label, fn(input))
+            ltest.assert_equals(label, actual, expected)
         end
     end
 end
 
 -- CodingBat: has77
-run_boolean_cases("has77", core.has77, {
+run_test("has77", core.has77, {
     { {1, 7, 7}, true },
     { {1, 7, 1, 7}, true },
     { {1, 7, 1, 1, 7}, false },
@@ -39,7 +47,7 @@ run_boolean_cases("has77", core.has77, {
 })
 
 -- CodingBat: has12
-run_boolean_cases("has12", core.has12, {
+run_test("has12", core.has12, {
     { {1, 3, 2}, true },
     { {1, 3, 2, 5}, true },
     { {1}, false },

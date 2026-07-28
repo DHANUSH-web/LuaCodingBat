@@ -103,5 +103,25 @@ function core.modThree(nums)
     return false
 end
 
+function core.haveThree(nums)
+    local three_count = 0
+
+    for i = 1, #nums - 1 do
+        if nums[i] == 3 and nums[i + 1] ~= 3 then
+            three_count = three_count + 1
+        end
+
+        if nums[i] == 3 and nums[i + 1] == 3 then
+            return false
+        end
+    end
+
+    if #nums > 2 and nums[#nums] == 3 and nums[#nums - 1] ~= 3 then
+        three_count = three_count + 1
+    end
+
+    return three_count == 3
+end
+
 -- CodingBat: END
 return core

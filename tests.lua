@@ -80,4 +80,11 @@ ltest.run_test("modThree", {
     { core.modThree({2, 4, 2, 5}), true },
 })
 
+-- CodingBat: haveThree
+ltest.run_test("haveThree", {
+    { core.haveThree({3, 1, 3, 1, 3}), true },
+    { core.haveThree({3, 1, 3, 3}), false },
+    { core.haveThree({3, 4, 3, 3, 4}), false },
+})
+
 ltest.finish()

@@ -26,6 +26,7 @@
 local LuaTest = {}
 
 --- Running totals for the current process.
+--- @class LuaTest
 --- @field total  number  Assertions executed so far
 --- @field passed number  Assertions that succeeded
 --- @field failed number  Assertions that failed (or errored via run_case)

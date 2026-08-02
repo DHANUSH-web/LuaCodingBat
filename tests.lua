@@ -87,4 +87,11 @@ ltest.run_test("haveThree", {
     { core.haveThree({3, 4, 3, 3, 4}), false },
 })
 
+-- CodingBat: twoTwo
+ltest.run_test("twoTwo", {
+    { core.twoTwo({4, 2, 2, 3}), true },
+    { core.twoTwo({2, 2, 5}), true },
+    { core.twoTwo({2, 2, 4, 2}), false },
+})
+
 ltest.finish()

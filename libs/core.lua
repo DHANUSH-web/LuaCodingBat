@@ -123,5 +123,37 @@ function core.haveThree(nums)
     return three_count == 3
 end
 
+function core.twoTwo(nums)
+    if #nums == 0 then
+        return true
+    elseif #nums == 1 then
+        return nums[1] ~= 2
+    end
+
+    local count = 0
+    local i = 1
+    local couple = false
+    local only, both
+
+    while i < #nums do
+        only = (nums[i] == 2 and nums[i+1] ~= 2) or (nums[i] ~= 2 and nums[i+1] == 2)
+        both = nums[i] == 2 and nums[i+1] == 2
+
+        if only then
+            couple = false
+            count = count + 1
+        end
+
+        if both then
+            couple = true
+            i = i + 1
+        end
+
+        i = i + 1
+    end
+
+    return couple or count == 0
+end
+
 -- CodingBat: END
 return core

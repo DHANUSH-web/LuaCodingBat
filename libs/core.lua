@@ -155,5 +155,16 @@ function core.twoTwo(nums)
     return couple or count == 0
 end
 
+-- CodingBat: sameEnds
+function core.sameEnds(nums, len)
+    for i = 1, len do
+        if nums[i] ~= nums[#nums - len + i] then
+            return false
+        end
+    end
+
+    return true
+end
+
 -- CodingBat: END
 return core

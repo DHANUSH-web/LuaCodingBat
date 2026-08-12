@@ -94,4 +94,11 @@ ltest.run_test("twoTwo", {
     { core.twoTwo({2, 2, 4, 2}), false },
 })
 
+-- CodingBat: sameEnds
+ltest.run_test("sameEnds", {
+    { core.sameEnds({5, 6, 45, 99, 13, 5, 6}, 1), false },
+    { core.sameEnds({5, 6, 45, 99, 13, 5, 6}, 2), true },
+    { core.sameEnds({5, 6, 45, 99, 13, 5, 6}, 3), false },
+})
+
 ltest.finish()

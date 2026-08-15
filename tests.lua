@@ -101,4 +101,11 @@ ltest.run_test("sameEnds", {
     { core.sameEnds({5, 6, 45, 99, 13, 5, 6}, 3), false },
 })
 
+-- CodingBat: tripleUp
+ltest.run_test("tripleUp", {
+    { core.tripleUp({2, 4, 5, 6, 2, 3}), true },
+    { core.tripleUp({1, 2, 3}), true },
+    { core.tripleUp({1, 2, 5}), false },
+})
+
 ltest.finish()

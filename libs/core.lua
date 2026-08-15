@@ -166,5 +166,16 @@ function core.sameEnds(nums, len)
     return true
 end
 
+-- CodingBat: triplUp
+function core.tripleUp(nums)
+    for i = 1, #nums-1 do
+        if nums[i+1] - nums[i] == 1 and nums[i+2] - nums[i+1] == 1 then
+            return true
+        end
+    end
+
+    return false
+end
+
 -- CodingBat: END
 return core

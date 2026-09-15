@@ -108,4 +108,11 @@ ltest.run_test("tripleUp", {
     { core.tripleUp({1, 2, 5}), false },
 })
 
+-- CodingBat: fizzArray3
+ltest.run_test("fizzArray3", {
+    { core.fizzArray3(5, 10), {5, 6, 7, 8, 9} },
+    { core.fizzArray3(11, 18), {11, 12, 13, 14, 15, 16, 17} },
+    { core.fizzArray3(1, 3), {1, 2} },
+})
+
 ltest.finish()

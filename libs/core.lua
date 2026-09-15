@@ -177,5 +177,16 @@ function core.tripleUp(nums)
     return false
 end
 
+-- CodingBat: fizzArray3
+function core.fizzArray3(start, stop)
+    local arr = {}
+
+    for i = start, stop - 1 do
+        arr[i - start + 1] = i
+    end
+
+    return arr
+end
+
 -- CodingBat: END
 return core

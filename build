@@ -9,11 +9,17 @@ usage() {
 Usage: ./build <command> [args]
 
 Commands:
-  run                 Run main.lua
-  test [suite]        Run tests (optional suite filter, e.g. has77)
-  new <name>          Scaffold a new CodingBat problem in core + tests
-  list                List test suites discovered in tests.lua
-  help                Show this help
+  run                      Run main.lua
+  test [opts] [suite]      Run tests (see flags below)
+  new <name>               Scaffold a new CodingBat problem in core + tests
+  list                     List test suites discovered in tests.lua
+  help                     Show this help
+
+test options (passed to LuaTest):
+  -q, --quiet              Failures only + summary
+  -v, --verbose            Print every case (default)
+  -h, --help               LuaTest flag help
+  <suite>                  Run one suite (e.g. has77, pow)
 EOF
 }
 

@@ -16,8 +16,10 @@ lua -v
 ## Quick start
 
 ```bash
-./build test          # run all tests
+./build test          # run all tests (suite headers + ✓/✗)
 ./build test has77    # run one suite
+./build test -q       # quiet: failures only + summary
+./build test -q pow   # quiet + filter
 ./build list          # list suites
 ./build run           # show usage hints
 ./build help          # all commands

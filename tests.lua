@@ -42,6 +42,16 @@ ltest.run_test("has77", {
     { core.has77({7, 2, 7, 2}), true },
 })
 
+-- Bubble Sort
+ltest.run_test("bubble_sort", {
+    { core.bubble_sort({5, 2, -1, 0, 6}), {-1, 0, 2, 5, 6} },
+    { core.bubble_sort({1, 2, 0, -1, -2}), {-2, -1, 0, 1, 2} },
+    { core.bubble_sort({200, -2, 1, 0, 3}), {-2, 0, 1, 3, 200} },
+    { core.bubble_sort({5}), {5} },
+    { core.bubble_sort({}), {} },
+    { core.bubble_sort({-1, -2, -3, -4, -5}), {-5, -4, -3, -2, -1} },
+})
+
 -- CodingBat: has12
 ltest.run_test("has12", {
     { core.has12({1, 3, 2}), true },
@@ -54,6 +64,48 @@ ltest.run_test("has12", {
     { core.has12({3, 1, 4, 5, 2}), true },
     { core.has12({3, 2, 1}), false },
     { core.has12({1, 2}), true },
+})
+
+-- CodingBat: matchUp
+ltest.run_test("matchUp", {
+    { core.matchUp({1, 2, 3}, {2, 3, 10}), 2 },
+    { core.matchUp({1, 2, 3}, {2, 3, 5}), 3 },
+    { core.matchUp({1, 2, 3}, {2, 3, 3}), 2 },
+})
+
+-- CodingBat: modThree
+ltest.run_test("modThree", {
+    { core.modThree({2, 1, 3, 5}), true },
+    { core.modThree({2, 1, 2, 5}), false },
+    { core.modThree({2, 4, 2, 5}), true },
+})
+
+-- CodingBat: haveThree
+ltest.run_test("haveThree", {
+    { core.haveThree({3, 1, 3, 1, 3}), true },
+    { core.haveThree({3, 1, 3, 3}), false },
+    { core.haveThree({3, 4, 3, 3, 4}), false },
+})
+
+-- CodingBat: twoTwo
+ltest.run_test("twoTwo", {
+    { core.twoTwo({4, 2, 2, 3}), true },
+    { core.twoTwo({2, 2, 5}), true },
+    { core.twoTwo({2, 2, 4, 2}), false },
+})
+
+-- CodingBat: sameEnds
+ltest.run_test("sameEnds", {
+    { core.sameEnds({5, 6, 45, 99, 13, 5, 6}, 1), false },
+    { core.sameEnds({5, 6, 45, 99, 13, 5, 6}, 2), true },
+    { core.sameEnds({5, 6, 45, 99, 13, 5, 6}, 3), false },
+})
+
+-- CodingBat: tripleUp
+ltest.run_test("tripleUp", {
+    { core.tripleUp({2, 4, 5, 6, 2, 3}), true },
+    { core.tripleUp({1, 2, 3}), true },
+    { core.tripleUp({1, 2, 5}), false },
 })
 
 ltest.finish()

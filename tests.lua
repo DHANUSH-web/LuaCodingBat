@@ -115,4 +115,11 @@ ltest.run_test("fizzArray3", {
     { core.fizzArray3(1, 3), {1, 2} },
 })
 
+-- CodingBat: shiftLeft
+ltest.run_test("shiftLeft", {
+    { core.shiftLeft({5, 1, 2, 3, 4}), {1, 2, 3, 4, 5} },
+    { core.shiftLeft({1, 2}), {2, 1} },
+    { core.shiftLeft({1}), {1} },
+})
+
 ltest.finish()

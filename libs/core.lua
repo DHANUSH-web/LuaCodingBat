@@ -188,5 +188,22 @@ function core.fizzArray3(start, stop)
     return arr
 end
 
+-- CodingBat: shiftLeft
+function core.shiftLeft(nums)
+    if #nums <= 1 then
+        return nums
+    end
+
+    local temp = nums[1];
+
+    for i = 2, #nums do
+        nums[i-1] = nums[i]
+    end
+
+    nums[#nums] = temp
+
+    return nums
+end
+
 -- CodingBat: END
 return core

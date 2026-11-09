@@ -205,5 +205,29 @@ function core.shiftLeft(nums)
     return nums
 end
 
+-- CodingBat: Pre4
+function core.pre4(nums)
+    local index = -1
+
+    for i = 1, #nums do
+        if nums[i] == 4 then
+            index = i
+            break
+        end
+    end
+
+    if index == -1 then
+        return nums
+    end
+
+    local arr = {}
+
+    for i = 1, index-1 do
+        arr[i] = nums[i]
+    end
+
+    return arr
+end
+
 -- CodingBat: END
 return core

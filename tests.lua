@@ -122,4 +122,11 @@ ltest.run_test("shiftLeft", {
     { core.shiftLeft({1}), {1} },
 })
 
+-- CodingBat: pre4
+ltest.run_test("pre4", {
+    { core.pre4({1, 2, 4, 5}), {1, 2} },
+    { core.pre4({3, 1, 2, 4}), {3, 1, 2} },
+    { core.pre4({1, 4, 4, 5}), {1} },
+})
+
 ltest.finish()

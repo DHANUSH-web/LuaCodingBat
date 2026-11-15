@@ -129,4 +129,11 @@ ltest.run_test("pre4", {
     { core.pre4({1, 4, 4, 5}), {1} },
 })
 
+-- CodingBat: post4
+ltest.run_test("post4", {
+    { core.post4({2, 4, 1, 2}), {1, 2} },
+    { core.post4({4, 1, 4, 2}), {2} },
+    { core.post4({4, 4, 1, 2, 3}), {1, 2, 3} },
+})
+
 ltest.finish()

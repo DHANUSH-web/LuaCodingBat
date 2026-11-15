@@ -229,5 +229,29 @@ function core.pre4(nums)
     return arr
 end
 
+-- CodingBat: Post4
+function core.post4(nums)
+    local index = -1
+
+    for i = #nums, 0, -1 do
+        if nums[i] == 4 then
+            index = i
+            break
+        end
+    end
+
+    if index == -1 then
+        return nums
+    end
+
+    local arr = {}
+
+    for i = index+1, #nums do
+        arr[i-index] = nums[i]
+    end
+
+    return arr
+end
+
 -- CodingBat: END
 return core

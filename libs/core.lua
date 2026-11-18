@@ -253,5 +253,20 @@ function core.post4(nums)
     return arr
 end
 
+-- CodingBat: notAlone
+function core.notAlone(nums, val)
+    if #nums <= 2 then
+        return nums
+    end
+
+    for i = 2, #nums - 1 do
+        if nums[i] == val and nums[i - 1] ~= val and nums[i + 1] ~= val then
+            nums[i] = math.max(nums[i - 1], nums[i + 1])
+        end
+    end
+
+    return nums
+end
+
 -- CodingBat: END
 return core

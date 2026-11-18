@@ -136,4 +136,11 @@ ltest.run_test("post4", {
     { core.post4({4, 4, 1, 2, 3}), {1, 2, 3} },
 })
 
+-- CodingBat: notAlone
+ltest.run_test("notAlone", {
+    { core.notAlone({ 1, 2, 3 }, 2), { 1, 3, 3 } },
+    { core.notAlone({ 1, 2, 3, 2, 5, 2 }, 2), { 1, 3, 3, 5, 5, 2 } },
+    { core.notAlone({ 3, 4 }, 3), { 3, 4 } },
+})
+
 ltest.finish()
